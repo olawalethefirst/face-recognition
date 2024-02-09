@@ -3,20 +3,20 @@
 .section {
   max-width: 941px;
   margin: auto;
+  padding: 12px;
   padding-top: 48px;
   padding-bottom: 48px;
 }
 
-.App-header {
+.header {
   display: flex;
   padding-top: 24px !important;
   padding-bottom: 24px !important;
-}
-
-.nav-container {
   flex: 1;
   align-items: center;
 }
 
-.App-link {
+button {
+  cursor: pointer;
 }
+

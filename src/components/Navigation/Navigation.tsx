@@ -1,9 +1,9 @@
-import "./Navigation.css";
+import styles from "./Navigation.module.scss";
 
 export default function Navigation() {
   return (
-    <nav className="nav-container">
-      <button className="sign-out">Sign Out</button>
+    <nav className={styles["nav-container"]}>
+      <button className={styles["action-button"]}>Sign Out</button>
     </nav>
   );
 }
