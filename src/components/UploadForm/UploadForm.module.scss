@@ -1,27 +1,31 @@
 .container {
-    max-width: 600px;
-    display: flex;
-    margin: auto;
-    border-radius: 12px;
-    overflow: hidden;
+  max-width: 600px;
+  display: flex;
+  margin: auto;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 12px;
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px;
 }
 
 .submit {
-    padding: 16px; 
-    border: none;
-    transition: 0.2s all ease-in-out;
-    background-color: blue;
-    color: white;
-    font-weight: 600;
+  padding: 16px;
+  border: none;
+  transition: 0.2s all ease-in-out;
+  background-color: blue;
+  color: white;
+  font-weight: 600;
 }
 
 .submit:hover {
-    padding: 16px 24px; 
+  padding: 16px 24px;
+}
+
+.submit-disabled {
+  opacity: 0.5;
 }

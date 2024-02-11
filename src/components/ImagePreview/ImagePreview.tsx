@@ -1,19 +1,58 @@
-import styles from "./ImagePreview.module.scss"
-import React from 'react'
+// APIs
+import { useContext } from "react";
+import { faceDetectionContext } from "../../Providers/FaceDetectionProvider";
 
-export default function ImagePreview({ facesLocation }: { facesLocation:{top: string, bottom: string, left: string, right: string}[] } ) {
-    console.log(facesLocation);
+//Components
+import { ThreeCircles } from "react-loader-spinner";
 
+import { FaceBoundary } from "../../types";
+
+import styles from "./ImagePreview.module.scss";
+
+export default function ImagePreview({
+  facesLocation,
+}: {
+  facesLocation: { top: string; bottom: string; left: string; right: string }[];
+}) {
+  const { isDetectingFaces, imageURL, facesBoundary } =
+    useContext(faceDetectionContext);
+
+  if (isDetectingFaces)
     return (
+      <ThreeCircles
+        height="140"
+        width="140"
+        wrapperClass={styles["loader-wrapper"]}
+        color="gold"
+        ariaLabel="audio-loading"
+        visible
+      />
+    );
+
+  return (
     <div className={styles["container"]}>
+      {imageURL && (
         <div className={styles["imageContainer"]}>
-            <img alt="heads detected using AI" className={styles["image"]} src={"https://media-cdn.tripadvisor.com/media/photo-s/14/01/96/89/beautiful-people-at-nikki.jpg"}/>
-
-            <div style={{position: "absolute", border: "1px solid blue", top: "5%", right:"90%", bottom: "90%", left: "5%" }}>
-
-            </div>
+          <img
+            alt="heads detected using AI"
+            className={styles["image"]}
+            src={imageURL}
+          />
+          {facesBoundary.map(({ top, right, bottom, left }, index) => (
+            <div
+              key={`${index}`}
+              style={{
+                position: "absolute",
+                border: "2px solid black",
+                top: `${top * 100}%`,
+                right: `${right * 100}%`,
+                bottom: `${bottom * 100}%`,
+                left: `${left * 100}%`,
+              }}
+            />
+          ))}
         </div>
-
+      )}
     </div>
-  )
+  );
 }

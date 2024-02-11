@@ -1,12 +1,18 @@
-import RouteWrapper from "../../components/RouteWrapper/RouteWrapper"
-import AuthForm from "../../components/AuthForm/AuthForm"
+// APIS
+import { memo } from "react";
 
-export default function SignUp() {
+// Components
+import RouteWrapper from "../../components/RouteWrapper/RouteWrapper";
+import AuthForm from "../../components/AuthForm/AuthForm";
+
+function SignUp() {
   return (
     <RouteWrapper>
       <section className="section">
-        <AuthForm signUp/>
+        <AuthForm signUp />
       </section>
     </RouteWrapper>
-  )
+  );
 }
+
+export default memo(SignUp);

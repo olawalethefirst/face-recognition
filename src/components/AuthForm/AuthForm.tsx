@@ -1,33 +1,50 @@
-import styles from  "./AuthForm.module.scss"
+import styles from "./AuthForm.module.scss";
 
-export default function AuthForm({signUp = false}:  {signUp?: boolean}) {
-
+export default function AuthForm({ signUp = false }: { signUp?: boolean }) {
   return (
     <div className={styles["form-container"]}>
+      <div className={styles["labeled-input"]}>
+        <label className={styles["label"]} htmlFor="email">
+          Email:
+        </label>
+        <input className={styles["input"]} type="email" id="email" />
+      </div>
+
+      <div className={styles["labeled-input"]}>
+        <label className={styles["label"]} htmlFor="password">
+          Password:
+        </label>
+        <input className={styles["input"]} type="password" id="password" />
+      </div>
+
+      {signUp && (
         <div className={styles["labeled-input"]}>
-            <label className={styles["label"]} htmlFor="email">Email:</label>
-            <input className={styles["input"]} type="email"  id="email"/>
+          <label className={styles["label"]} htmlFor="confirm-password">
+            Confirm Password:
+          </label>
+          <input
+            className={styles["input"]}
+            type="password"
+            id="confirm-password"
+          />
         </div>
+      )}
 
-        <div className={styles["labeled-input"]}>
-            <label className={styles["label"]} htmlFor="password">Password:</label>
-            <input className={styles["input"]} type="password"  id="password"/>
-        </div>
-        
-        {
-            signUp &&
-            (
-                <div className={styles["labeled-input"]}>
-                    <label className={styles["label"]} htmlFor="confirm-password">Confirm Password:</label>
-                    <input className={styles["input"]} type="password"  id="confirm-password" />
-                </div>
-            )
-        }
+      <button className={styles["submit"]}>Submit</button>
 
-        <button className={styles["submit"]}>
-            Submit
-        </button>
+      {signUp && (
+        <p className={styles["auth-method-switch"]}>
+          {"Have an account already? "}
+          <span>Sign in instead.</span>
+        </p>
+      )}
 
+      {!signUp && (
+        <p className={styles["auth-method-switch"]}>
+          {"New user? "}
+          <span>Sign in instead.</span>
+        </p>
+      )}
     </div>
-  )
+  );
 }

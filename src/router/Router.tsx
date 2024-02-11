@@ -1,9 +1,6 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Home from "../routes/Home";
+import Home from "../routes/Home/Home";
 import SignIn from "../routes/SignIn/SignIn";
 import SignUp from "../routes/SignUp/SignUp";
 
@@ -22,8 +19,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default function Router () {
-    return (
-        <RouterProvider router={router} />
-    )
+export default function Router() {
+  return <RouterProvider router={router} />;
 }
