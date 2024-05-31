@@ -5,14 +5,18 @@ import { memo } from "react";
 import RouteWrapper from "../../components/RouteWrapper/RouteWrapper";
 import AuthForm from "../../components/AuthForm/AuthForm";
 
-function SignUp() {
+function Signup() {
   return (
     <RouteWrapper>
       <section className="section">
-        <AuthForm signUp />
+        <AuthForm
+          signup
+          authError={""}
+          handleSubmit={(values) => console.log(values)}
+        />
       </section>
     </RouteWrapper>
   );
 }
 
-export default memo(SignUp);
+export default memo(Signup);
