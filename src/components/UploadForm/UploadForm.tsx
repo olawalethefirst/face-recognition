@@ -1,53 +1,70 @@
 // APIs
-import { useState, useContext } from "react";
+import { useContext } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { faceDetectionContext } from "../../Providers/FaceDetectionProvider";
 
 import styles from "./UploadForm.module.scss";
 
 export default function UploadForm() {
-  const [imageURL, setImageURL] = useState("");
-  const { detectFaces, isDetectingFaces } = useContext(faceDetectionContext);
+  const { detectFaces } = useContext(faceDetectionContext);
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+    isValid,
+  } = useFormik({
+    initialValues: { imageURL: "" },
+    validationSchema: Yup.object({
+      imageURL: Yup.string()
+        .url("Invalid URL specified")
+        .required("Image URL isRequired"),
+    }),
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      try {
+        await detectFaces(values.imageURL);
+        setSubmitting(false);
+        resetForm();
+      } catch (error) {
+        console.error("AuthForm Error:", error);
+      }
+    },
+  });
 
-  const urlPattern =
-    /^(?:https:\/\/|http:\/\/|)(?:www.|)[a-z0-9]+[a-z0-9-.]*([a-z0-9]+.[a-z]+(?:\/\w+|)(?:\/.*|))$/i;
-  const isValidUrl = urlPattern.test(imageURL);
-
-  const disableDetectButton = isDetectingFaces || !isValidUrl;
-
-  // functions
-  const handleImageURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e;
-
-    setImageURL(value);
-  };
-  const handleDetectFaces = () => {
-    if (isValidUrl) {
-      detectFaces(imageURL);
-    }
-  };
-
-  console.log("detecting disabled: ", isValidUrl);
+  const disableDetectButton = isSubmitting || !isValid;
 
   return (
-    <div className={styles["container"]}>
-      <input
-        value={imageURL}
-        className={styles["input"]}
-        onChange={handleImageURLChange}
-      />
+    <form onSubmit={handleSubmit}>
+      <div className={styles["inputContainer"]}>
+        <input
+          value={values.imageURL}
+          className={styles["input"]}
+          onChange={handleChange}
+          type={"text"}
+          name={"imageURL"}
+          id={"imageURL"}
+          onBlur={handleBlur}
+        />
 
-      <button
-        className={`${styles["submit"]} ${
-          disableDetectButton ? styles["submit-disabled"] : ""
-        }`}
-        onClick={handleDetectFaces}
-        disabled={disableDetectButton}
-      >
-        Detect
-      </button>
-    </div>
+        <button
+          className={`${styles["submit"]} ${
+            disableDetectButton ? styles["submit-disabled"] : ""
+          }`}
+          disabled={disableDetectButton}
+          type="submit"
+        >
+          Detect
+        </button>
+      </div>
+
+      {touched.imageURL && errors.imageURL && (
+        <p className={styles.inputError}>{errors.imageURL}</p>
+      )}
+    </form>
   );
 }

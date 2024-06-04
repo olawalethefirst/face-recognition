@@ -6,7 +6,8 @@
 }
 
 .action-button {
-  background: inherit;
+  all: unset;
+  background: transparent !important;
   border: none;
   padding: 12px;
   cursor: pointer;
@@ -15,7 +16,14 @@
   font-weight: bold;
   transition: 0.1s all ease-in-out;
 }
+
 .action-button:hover {
+  @media(min-width: 768px) {
+    color: gold;
+    opacity: 0.7;
+  }
+}
+.action-button:active {
   color: gold;
   opacity: 0.7;
 }

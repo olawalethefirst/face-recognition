@@ -1,4 +1,4 @@
-.container {
+.inputContainer {
   max-width: 600px;
   display: flex;
   margin: auto;
@@ -12,6 +12,12 @@
   outline: none;
   padding: 12px;
 }
+.inputError {
+  font-size: 12px;
+  font-weight: 500;
+  color: red;
+  text-align: center;
+}
 
 .submit {
   padding: 16px;
@@ -23,9 +29,17 @@
 }
 
 .submit:hover {
-  padding: 16px 24px;
+  @media(min-width: 768px) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+.submit:active {
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 .submit-disabled {
   opacity: 0.5;
 }
+

@@ -1,7 +1,8 @@
+"use client";
 import styles from "./AuthForm.module.scss";
 import { useFormik } from "formik";
 import { getValidationSchema } from "./utils";
-import { useEffect } from "react";
+import { ImSpinner9 } from "react-icons/im";
 
 const Field = ({
   label,
@@ -43,19 +44,16 @@ export default function AuthForm({
   signup = false,
   authError,
   handleSubmit,
+  submitting,
 }: {
   signup?: boolean;
+  submitting: boolean;
   authError?: string;
-  handleSubmit: (
-    formData:
-      | {
-          name: string;
-          email: string;
-          password: string;
-          confirmPassword: string;
-        }
-      | { email: string; password: string }
-  ) => unknown;
+  handleSubmit: (formData: {
+    name: string;
+    email: string;
+    password: string;
+  }) => Promise<unknown>;
 }) {
   const {
     values,
@@ -70,9 +68,9 @@ export default function AuthForm({
     initialValues: { name: "", email: "", password: "", confirmPassword: "" },
     validationSchema: getValidationSchema(signup),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      const { email, password } = values;
+      const { email, password, name } = values;
       try {
-        await handleSubmit(signup ? values : { email, password });
+        await handleSubmit({ name, email, password });
         setSubmitting(false);
         resetForm();
       } catch (error) {
@@ -80,9 +78,7 @@ export default function AuthForm({
       }
     },
   });
-  const submitDisabled = isSubmitting || !isValid;
-
-  useEffect(() => {}, []);
+  const submitDisabled = submitting || isSubmitting || !isValid;
 
   return (
     <form onSubmit={handleFormSubmit} className={styles["form-container"]}>
@@ -129,6 +125,7 @@ export default function AuthForm({
           value={values.confirmPassword}
         />
       )}
+
       <button
         disabled={isSubmitting || !isValid}
         type="submit"
@@ -136,7 +133,11 @@ export default function AuthForm({
           submitDisabled ? styles["submitDisabled"] : ""
         }`}
       >
-        Submit
+        {submitting ? (
+          <ImSpinner9 className={styles.spinner} size={18} />
+        ) : (
+          "Submit"
+        )}
       </button>
 
       {authError && <p className={styles.authError}>{authError}</p>}
