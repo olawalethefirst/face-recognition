@@ -1,14 +1,14 @@
 // APIs
-import { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { faceDetectionContext } from "../../Providers/FaceDetectionProvider";
-
 import styles from "./UploadForm.module.scss";
 
-export default function UploadForm() {
-  const { detectFaces } = useContext(faceDetectionContext);
+export default function UploadForm({
+  detectFaces,
+}: {
+  detectFaces: (imageURL: string) => unknown;
+}) {
   const {
     values,
     errors,

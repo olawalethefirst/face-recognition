@@ -1,7 +1,3 @@
-// APIs
-import { useContext } from "react";
-import { faceDetectionContext } from "../../Providers/FaceDetectionProvider";
-
 //Components
 import { ThreeCircles } from "react-loader-spinner";
 
@@ -10,13 +6,14 @@ import { FaceBoundary } from "../../types";
 import styles from "./ImagePreview.module.scss";
 
 export default function ImagePreview({
-  facesLocation,
+  isDetectingFaces,
+  imageURL,
+  facesBoundary,
 }: {
-  facesLocation: { top: string; bottom: string; left: string; right: string }[];
+  isDetectingFaces: boolean;
+  imageURL?: string;
+  facesBoundary: FaceBoundary[];
 }) {
-  const { isDetectingFaces, imageURL, facesBoundary } =
-    useContext(faceDetectionContext);
-
   if (isDetectingFaces)
     return (
       <ThreeCircles

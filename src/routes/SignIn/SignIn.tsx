@@ -20,7 +20,7 @@ function Signin() {
   }) => {
     await mutateAsync(userData);
     notify("Signed in successfully", "SUCCESS");
-    navigate("/");
+    navigate("/home");
   };
 
   return (
