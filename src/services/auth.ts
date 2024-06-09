@@ -1,13 +1,14 @@
 import { faceDetectionInstance } from "../APIs/axios";
 import { setUserToken } from "../utils/auth";
 import { AxiosError, AxiosResponse } from "axios";
-import { ErrorResponse } from "../types";
+import { ErrorResponse, User } from "../types";
 
 interface AuthResponse {
   success: boolean;
   message: string;
   data: {
     token: string;
+    user: User;
   };
 }
 
@@ -22,10 +23,12 @@ export const signup = async (userData: {
 
     const {
       data: {
-        data: { token },
+        data: { token, user },
       },
     } = response;
     setUserToken(token);
+
+    return user;
   } catch (error) {
     const remoteError = (error as AxiosError<ErrorResponse>).response?.data;
 
@@ -42,10 +45,12 @@ export const signin = async (userData: { email: string; password: string }) => {
 
     const {
       data: {
-        data: { token },
+        data: { token, user },
       },
     } = response;
     setUserToken(token);
+
+    return user;
   } catch (error) {
     const remoteError = (error as AxiosError<ErrorResponse>).response?.data;
 

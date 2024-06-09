@@ -3,4 +3,12 @@ export const faceDetectionAPIBaseURL =
 
 export const localStorageKeys = {
   userToken: "USER_TOKEN",
+  user: "USER",
+};
+
+export const routes = {
+  auth: "/auth",
+  signin: "/auth/signin",
+  signup: "/auth/signup",
+  app: "/",
 };

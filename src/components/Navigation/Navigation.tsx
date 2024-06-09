@@ -1,13 +1,16 @@
 import styles from "./Navigation.module.scss";
-import useSignout from "../../hooks/useSignout";
 
-export default function Navigation() {
-  const { signout } = useSignout();
-
+export default function Navigation({
+  handleNavAction,
+  actionLabel,
+}: {
+  handleNavAction: () => unknown;
+  actionLabel: string;
+}) {
   return (
     <nav className={styles["nav-container"]}>
-      <button onClick={signout} className={styles["action-button"]}>
-        Sign Out
+      <button onClick={handleNavAction} className={styles["action-button"]}>
+        {actionLabel}
       </button>
     </nav>
   );

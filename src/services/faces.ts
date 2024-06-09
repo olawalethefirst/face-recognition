@@ -1,6 +1,7 @@
 import { faceDetectionInstance } from "../APIs/axios";
 import { getUserToken } from "../utils/auth";
 import { FaceBoundary } from "../types";
+import { AxiosResponse } from "axios";
 
 interface DetectFacesResponse {
   success: boolean;
@@ -18,18 +19,21 @@ export const detectFaces = async (imageURL: string) => {
   if (!imageURL) throw new Error("Please provide an imageURL parameter");
 
   try {
-    const response: DetectFacesResponse = await faceDetectionInstance.put(
-      "/detection",
-      { imageUrl: imageURL },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response: AxiosResponse<DetectFacesResponse> =
+      await faceDetectionInstance.put(
+        "/detection",
+        { imageUrl: imageURL },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
     const {
-      data: { faces },
+      data: {
+        data: { faces },
+      },
     } = response;
 
     return faces;

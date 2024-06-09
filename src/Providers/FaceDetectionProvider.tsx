@@ -14,13 +14,13 @@ import { FaceBoundary } from "../types";
 
 const initialContextValue: {
   imageURL: string | undefined;
-  detectFaces: (url: string) => unknown;
+  detectFaces: (url: string) => Promise<unknown>;
   isDetectingFaces: boolean;
   facesBoundary: FaceBoundary[];
   error: string | undefined;
 } = {
   imageURL: undefined,
-  detectFaces: () => {},
+  detectFaces: async () => {},
   isDetectingFaces: false,
   facesBoundary: [],
   error: undefined,
@@ -48,7 +48,7 @@ export default function FaceDetectionProvider({
         await preloadImageAsync(imageURL);
         setImageURL(imageURL);
       } catch (error) {
-        notify("Error detecting faces! Please try again.");
+        notify("Error detecting faces! Please try again.", "ERROR");
       }
     },
     [detectFacesAsync]

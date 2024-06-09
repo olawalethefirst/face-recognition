@@ -7,7 +7,7 @@ interface GetUserResponse {
   message: string;
   data: {
     name: string;
-    entries: string;
+    entries: number;
   };
 }
 export const getUser = async () => {

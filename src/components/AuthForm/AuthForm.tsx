@@ -2,7 +2,9 @@
 import styles from "./AuthForm.module.scss";
 import { useFormik } from "formik";
 import { getValidationSchema } from "./utils";
-import { ImSpinner9 } from "react-icons/im";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import { routes } from "../../constants";
+import { Link } from "react-router-dom";
 
 const Field = ({
   label,
@@ -133,11 +135,7 @@ export default function AuthForm({
           submitDisabled ? styles["submitDisabled"] : ""
         }`}
       >
-        {submitting ? (
-          <ImSpinner9 className={styles.spinner} size={18} />
-        ) : (
-          "Submit"
-        )}
+        {submitting ? <LoadingIndicator /> : "Submit"}
       </button>
 
       {authError && <p className={styles.authError}>{authError}</p>}
@@ -145,14 +143,18 @@ export default function AuthForm({
       {signup && (
         <p className={styles["auth-method-switch"]}>
           {"Have an account already? "}
-          <span>Sign in instead.</span>
+          <Link to={routes.signin}>
+            <span>Sign in</span>
+          </Link>
         </p>
       )}
 
       {!signup && (
         <p className={styles["auth-method-switch"]}>
           {"New user? "}
-          <span>Sign in instead.</span>
+          <Link to={routes.signup}>
+            <span>Sign up</span>
+          </Link>
         </p>
       )}
     </form>

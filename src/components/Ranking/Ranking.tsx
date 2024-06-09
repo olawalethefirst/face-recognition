@@ -5,7 +5,7 @@ export default function Ranking({
   ranking,
 }: {
   username: string;
-  ranking: string;
+  ranking: number;
 }) {
   return (
     <div>
