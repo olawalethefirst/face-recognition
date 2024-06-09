@@ -4,6 +4,7 @@ import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 import ParticlesBg from "particles-bg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import AxiosInterceptor from "../AxiosInterceptor/AxiosInterceptor";
 
 // Hooks
 import useSignout from "../../hooks/useSignout";
@@ -56,21 +57,23 @@ export default function RouteWrapper({ children }: PropsWithChildren<{}>) {
   }, [pathname, user, createHandleNavigate, signOut]);
 
   return (
-    <div>
-      <header className="section header">
-        <Link to={routes.app}>
-          <Logo />
-        </Link>
-        <Navigation
-          actionLabel={navAction.label}
-          handleNavAction={navAction.handler}
-        />
-      </header>
+    <AxiosInterceptor>
+      <div>
+        <header className="section header">
+          <Link to={routes.app}>
+            <Logo />
+          </Link>
+          <Navigation
+            actionLabel={navAction.label}
+            handleNavAction={navAction.handler}
+          />
+        </header>
 
-      {children}
+        {children}
 
-      {/* particle liibrary background */}
-      <ParticlesBg type="cobweb" bg />
-    </div>
+        {/* particle liibrary background */}
+        <ParticlesBg type="cobweb" bg />
+      </div>
+    </AxiosInterceptor>
   );
 }
