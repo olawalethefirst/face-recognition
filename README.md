@@ -10,8 +10,7 @@ It is a platform, whose users are able to authenticate their identity, and submi
 2. React
 3. React Query
 4. Fomik
-5. React Query
-6. Axios
+5. Axios
    
    
 
