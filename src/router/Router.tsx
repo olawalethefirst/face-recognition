@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
 import Home from "../routes/Home/Home";
 import SignIn from "../routes/Signin/Signin";
@@ -8,7 +8,7 @@ import { routes } from "../constants";
 import AuthRoutes from "../routes/AuthRoutes/AuthRoutes";
 import ErrorBoundary from "../routes/ErrorBoundary/ErrorBoundary";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: routes.app,
     element: <PrivateRoutes />,
