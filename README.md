@@ -1,4 +1,4 @@
-# Face Recognition
+# [Face Recognition](https://faces-recognition.netlify.app/#/)
 
 This project is part of a full stack, web application that detects the faces in any image selected.
 
